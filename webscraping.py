@@ -4,7 +4,7 @@ import requests
 
 app = Flask(__name__)
 
-@app.route('/<ndc>')
+@app.route('/<ndc>', methods=['GET'])
 def index(ndc):
     ndcis =  ndc
     page = requests.get('https://connect.medlineplus.gov/demo/service?knowledgeResponseType=text%2Fxml&mainSearchCriteria.v.cs=2.16.840.1.113883.6.69&mainSearchCriteria.v.c=+'+ndcis+'&mainSearchCriteria.v.dn=&informationRecipient.languageCode.c=en')
@@ -23,4 +23,4 @@ def index(ndc):
 
 
 if __name__ == '__main__': 
-   app.run(host="0.0.0.0", debug=False) # application will start listening for web request on port 5000
+   app.run(debug=False,host="0.0.0.0") # application will start listening for web request on port 5000
