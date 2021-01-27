@@ -10,17 +10,26 @@ def indexes():
 
 @app.route('/<ndc>', methods=['GET'])
 def index(ndc):
-    ndcis =  ndc
-    page = requests.get('https://connect.medlineplus.gov/demo/service?knowledgeResponseType=text%2Fxml&mainSearchCriteria.v.cs=2.16.840.1.113883.6.69&mainSearchCriteria.v.c=+'+ndcis+'&mainSearchCriteria.v.dn=&informationRecipient.languageCode.c=en')
-    tree = html.fromstring(page.content)
-
+    try:        
+        ndcis =  ndc
+        print(ndcis)
+        page = requests.get('https://connect.medlineplus.gov/demo/service?knowledgeResponseType=text%2Fxml&mainSearchCriteria.v.cs=2.16.840.1.113883.6.69&mainSearchCriteria.v.c=+'+ndcis+'&mainSearchCriteria.v.dn=&informationRecipient.languageCode.c=en')
+        print("page")
+        tree = html.fromstring(page.content)
+        print("tree")
 #This will create a list of buyers:
-    content = tree.xpath('//div[@class="entry"]/text()')
+        if tree.xpath('//div[@class="entry"]/text()'):
+            print("if")
+            content = tree.xpath('//div[@class="entry"]/text()')
+        content = ""
+        print(content)
 #This will create a list of prices
 #prices = tree.xpath('//span[@class="item-price"]/text()')
-    if(len(content)>3):
-        return content[4]
-    else:
+        if(len(content)>3):
+            return content[4]
+        else:
+            return "No response"
+    except:
         return "No response"
 
 #print(prices)
