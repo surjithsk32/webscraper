@@ -1,7 +1,7 @@
 from flask import Flask
 from lxml import html
 import requests
-
+import sys
 app = Flask(__name__)
 
 @app.route('/')
@@ -21,6 +21,7 @@ def index(ndc):
         if tree.xpath('//div[@class="entry"]/text()'):
             print("if")
             content = tree.xpath('//div[@class="entry"]/text()')
+            print("content")
         content = ""
         print(content)
 #This will create a list of prices
@@ -30,7 +31,7 @@ def index(ndc):
         else:
             return "No response"
     except:
-        return "No response"
+        return str(sys.exc_info()[0])
 
 #print(prices)
 
