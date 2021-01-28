@@ -23,7 +23,7 @@ def index(ndc):
             content = tree.xpath('//div[@class="entry"]/text()')
             print("content")
         else:
-            content = ""
+            return "No response"
         print(content)
 #This will create a list of prices
 #prices = tree.xpath('//span[@class="item-price"]/text()')
@@ -32,7 +32,7 @@ def index(ndc):
         else:
             return "No response"
     except:
-        return str(sys.exc_info()[0])
+        return "No response"
 
 #print(prices)
 
